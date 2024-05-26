@@ -265,3 +265,14 @@ type SySchedArgs struct {
 	// CR name of the default profile for all system calls
 	DefaultProfileName string
 }
+
+type PodCompletionPermitArgs struct {
+	metav1.TypeMeta
+
+	dependencyIndicatorLabel string
+	podAppSelector           string
+	versionSelector          string
+	postfixSelector          string
+	dependencyKind           string
+	dependencyName           string
+}

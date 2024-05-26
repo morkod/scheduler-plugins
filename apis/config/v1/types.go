@@ -263,3 +263,14 @@ type SySchedArgs struct {
 	// CR name of the default profile for all system calls
 	DefaultProfileName *string `json:"defaultProfileName,omitempty"`
 }
+
+type PodCompletionPermitArgs struct {
+	metav1.TypeMeta `json:",inline"`
+
+	dependencyIndicatorLabel *string `json:"dependencyIndicatorLabel,omitempty"`
+	podAppSelector           *string `json:"podAppSelector,omitempty"`
+	versionSelector          *string `json:"versionSelector,omitempty"`
+	postfixSelector          *string `json:"postfixSelector,omitempty"`
+	dependencyKind           *string `json:"dependencyKind,omitempty"`
+	dependencyName           *string `json:"dependencyName,omitempty"`
+}
