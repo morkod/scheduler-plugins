@@ -102,6 +102,13 @@ var (
 	DefaultSySchedProfileNamespace = "default"
 	// DefaultSySchedProfileName is the name of the default syscall profile CR for SySched plugin
 	DefaultSySchedProfileName = "all-syscalls"
+
+	DefaultPCPDependencyIndicatorLabel = "medindex.ru/dependsOnMigrator"
+	DefaultPCPVersionSelector          = "medindex.ru/commitShortSha"
+	DefaultPCPPodAppSelector           = "app.kubernetes.io/part-of"
+	DefaultPCPPostfixSelector          = "app.kubernetes.io/postfix"
+	DefaultPCPDependencyKind           = "medindex.ru/kind"
+	DefaultPCPDependencyName           = "migrator"
 )
 
 // SetDefaults_CoschedulingArgs sets the default parameters for Coscheduling plugin.
@@ -248,5 +255,26 @@ func SetDefaults_SySchedArgs(obj *SySchedArgs) {
 
 	if obj.DefaultProfileName == nil {
 		obj.DefaultProfileName = &DefaultSySchedProfileName
+	}
+}
+
+func SetDefaults_PodCompletionPermitArgs(obj *PodCompletionPermitArgs) {
+	if obj.PodAppSelector == nil || *obj.PodAppSelector == "" {
+		obj.PodAppSelector = &DefaultPCPPodAppSelector
+	}
+	if obj.PostfixSelector == nil || *obj.PostfixSelector == "" {
+		obj.PostfixSelector = &DefaultPCPPostfixSelector
+	}
+	if obj.VersionSelector == nil || *obj.VersionSelector == "" {
+		obj.VersionSelector = &DefaultPCPVersionSelector
+	}
+	if obj.DependencyIndicatorLabel == nil || *obj.DependencyIndicatorLabel == "" {
+		obj.DependencyIndicatorLabel = &DefaultPCPDependencyIndicatorLabel
+	}
+	if obj.DependencyKind == nil || *obj.DependencyKind == "" {
+		obj.DependencyKind = &DefaultPCPDependencyKind
+	}
+	if obj.DependencyName == nil || *obj.DependencyName == "" {
+		obj.DependencyName = &DefaultPCPDependencyName
 	}
 }

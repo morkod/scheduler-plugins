@@ -41,6 +41,7 @@ func RegisterDefaults(scheme *runtime.Scheme) error {
 	scheme.AddTypeDefaultingFunc(&NodeResourcesAllocatableArgs{}, func(obj interface{}) {
 		SetObjectDefaults_NodeResourcesAllocatableArgs(obj.(*NodeResourcesAllocatableArgs))
 	})
+	scheme.AddTypeDefaultingFunc(&PodCompletionPermitArgs{}, func(obj interface{}) { SetObjectDefaults_PodCompletionPermitArgs(obj.(*PodCompletionPermitArgs)) })
 	scheme.AddTypeDefaultingFunc(&PreemptionTolerationArgs{}, func(obj interface{}) { SetObjectDefaults_PreemptionTolerationArgs(obj.(*PreemptionTolerationArgs)) })
 	scheme.AddTypeDefaultingFunc(&SySchedArgs{}, func(obj interface{}) { SetObjectDefaults_SySchedArgs(obj.(*SySchedArgs)) })
 	scheme.AddTypeDefaultingFunc(&TargetLoadPackingArgs{}, func(obj interface{}) { SetObjectDefaults_TargetLoadPackingArgs(obj.(*TargetLoadPackingArgs)) })
@@ -70,6 +71,10 @@ func SetObjectDefaults_NodeResourceTopologyMatchArgs(in *NodeResourceTopologyMat
 
 func SetObjectDefaults_NodeResourcesAllocatableArgs(in *NodeResourcesAllocatableArgs) {
 	SetDefaults_NodeResourcesAllocatableArgs(in)
+}
+
+func SetObjectDefaults_PodCompletionPermitArgs(in *PodCompletionPermitArgs) {
+	SetDefaults_PodCompletionPermitArgs(in)
 }
 
 func SetObjectDefaults_PreemptionTolerationArgs(in *PreemptionTolerationArgs) {

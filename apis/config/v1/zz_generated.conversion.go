@@ -428,22 +428,22 @@ func Convert_config_NodeResourcesAllocatableArgs_To_v1_NodeResourcesAllocatableA
 }
 
 func autoConvert_v1_PodCompletionPermitArgs_To_config_PodCompletionPermitArgs(in *PodCompletionPermitArgs, out *config.PodCompletionPermitArgs, s conversion.Scope) error {
-	if err := metav1.Convert_Pointer_string_To_string(&in.dependencyIndicatorLabel, &out.dependencyIndicatorLabel, s); err != nil {
+	if err := metav1.Convert_Pointer_string_To_string(&in.DependencyIndicatorLabel, &out.DependencyIndicatorLabel, s); err != nil {
 		return err
 	}
-	if err := metav1.Convert_Pointer_string_To_string(&in.podAppSelector, &out.podAppSelector, s); err != nil {
+	if err := metav1.Convert_Pointer_string_To_string(&in.PodAppSelector, &out.PodAppSelector, s); err != nil {
 		return err
 	}
-	if err := metav1.Convert_Pointer_string_To_string(&in.versionSelector, &out.versionSelector, s); err != nil {
+	if err := metav1.Convert_Pointer_string_To_string(&in.VersionSelector, &out.VersionSelector, s); err != nil {
 		return err
 	}
-	if err := metav1.Convert_Pointer_string_To_string(&in.postfixSelector, &out.postfixSelector, s); err != nil {
+	if err := metav1.Convert_Pointer_string_To_string(&in.PostfixSelector, &out.PostfixSelector, s); err != nil {
 		return err
 	}
-	if err := metav1.Convert_Pointer_string_To_string(&in.dependencyKind, &out.dependencyKind, s); err != nil {
+	if err := metav1.Convert_Pointer_string_To_string(&in.DependencyKind, &out.DependencyKind, s); err != nil {
 		return err
 	}
-	if err := metav1.Convert_Pointer_string_To_string(&in.dependencyName, &out.dependencyName, s); err != nil {
+	if err := metav1.Convert_Pointer_string_To_string(&in.DependencyName, &out.DependencyName, s); err != nil {
 		return err
 	}
 	return nil
@@ -455,22 +455,22 @@ func Convert_v1_PodCompletionPermitArgs_To_config_PodCompletionPermitArgs(in *Po
 }
 
 func autoConvert_config_PodCompletionPermitArgs_To_v1_PodCompletionPermitArgs(in *config.PodCompletionPermitArgs, out *PodCompletionPermitArgs, s conversion.Scope) error {
-	if err := metav1.Convert_string_To_Pointer_string(&in.dependencyIndicatorLabel, &out.dependencyIndicatorLabel, s); err != nil {
+	if err := metav1.Convert_string_To_Pointer_string(&in.DependencyIndicatorLabel, &out.DependencyIndicatorLabel, s); err != nil {
 		return err
 	}
-	if err := metav1.Convert_string_To_Pointer_string(&in.podAppSelector, &out.podAppSelector, s); err != nil {
+	if err := metav1.Convert_string_To_Pointer_string(&in.PodAppSelector, &out.PodAppSelector, s); err != nil {
 		return err
 	}
-	if err := metav1.Convert_string_To_Pointer_string(&in.versionSelector, &out.versionSelector, s); err != nil {
+	if err := metav1.Convert_string_To_Pointer_string(&in.VersionSelector, &out.VersionSelector, s); err != nil {
 		return err
 	}
-	if err := metav1.Convert_string_To_Pointer_string(&in.postfixSelector, &out.postfixSelector, s); err != nil {
+	if err := metav1.Convert_string_To_Pointer_string(&in.PostfixSelector, &out.PostfixSelector, s); err != nil {
 		return err
 	}
-	if err := metav1.Convert_string_To_Pointer_string(&in.dependencyKind, &out.dependencyKind, s); err != nil {
+	if err := metav1.Convert_string_To_Pointer_string(&in.DependencyKind, &out.DependencyKind, s); err != nil {
 		return err
 	}
-	if err := metav1.Convert_string_To_Pointer_string(&in.dependencyName, &out.dependencyName, s); err != nil {
+	if err := metav1.Convert_string_To_Pointer_string(&in.DependencyName, &out.DependencyName, s); err != nil {
 		return err
 	}
 	return nil

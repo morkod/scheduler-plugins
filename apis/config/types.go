@@ -269,10 +269,10 @@ type SySchedArgs struct {
 type PodCompletionPermitArgs struct {
 	metav1.TypeMeta
 
-	dependencyIndicatorLabel string
-	podAppSelector           string
-	versionSelector          string
-	postfixSelector          string
-	dependencyKind           string
-	dependencyName           string
+	DependencyIndicatorLabel string
+	PodAppSelector           string
+	VersionSelector          string
+	PostfixSelector          string
+	DependencyKind           string
+	DependencyName           string
 }

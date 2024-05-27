@@ -29,7 +29,7 @@ type PodCompletionPermit struct {
 
 var _ = framework.PermitPlugin(&PodCompletionPermit{})
 
-func CheckDependencyCompletion(namespace string, app string, postfix string, version string) bool {
+func (pcp *PodCompletionPermit) CheckDependencyCompletion(namespace string, app string, postfix string, version string) bool {
 	config, err1 := rest.InClusterConfig()
 	if err1 != nil {
 		panic(err1.Error())
@@ -44,11 +44,11 @@ func CheckDependencyCompletion(namespace string, app string, postfix string, ver
 	}
 	for _, pod := range podlist.Items {
 		if postfix != "" {
-			if pod.Labels["postfix"] != postfix {
+			if pod.Labels[pcp.postfixSelector] != postfix {
 				continue
 			}
 		}
-		if pod.Labels["app-name"] == app && pod.Labels["version"] == version && pod.Labels["pod-kind"] == "migrator" {
+		if pod.Labels[pcp.podAppSelector] == app && pod.Labels[pcp.versionSelector] == version && pod.Labels[pcp.dependencyKind] == pcp.dependencyName {
 			return pod.Status.Phase == v1.PodSucceeded
 		}
 
@@ -61,14 +61,14 @@ func (pcp *PodCompletionPermit) Name() string {
 }
 
 func (pcp *PodCompletionPermit) Permit(_ context.Context, _ *framework.CycleState, p *v1.Pod, _ string) (*framework.Status, time.Duration) {
-	if val, ok := (*p).Labels["dependsOnMigrator"]; ok && val == "true" {
-		if ver, okk := (*p).Labels["version"]; okk {
+	if val, ok := (*p).Labels[pcp.dependencyIndicatorLabel]; ok && val == "yep" {
+		if ver, okk := (*p).Labels[pcp.versionSelector]; okk {
 			var namespace = (*p).Namespace
 			var postfix = ""
-			if pstfx, okkk := (*p).Labels["postfix"]; okkk {
+			if pstfx, okkk := (*p).Labels[pcp.postfixSelector]; okkk {
 				postfix = pstfx
 			}
-			if !CheckDependencyCompletion(namespace, (*p).Labels["app-name"], postfix, ver) {
+			if !pcp.CheckDependencyCompletion(namespace, (*p).Labels[pcp.podAppSelector], postfix, ver) {
 				return framework.NewStatus(framework.Wait, "Waiting for dependency to complete"), 90 * time.Second
 			} else {
 				return framework.NewStatus(framework.Success, "Dependency completed"), 0 * time.Second
@@ -85,17 +85,17 @@ func (pcp *PodCompletionPermit) Permit(_ context.Context, _ *framework.CycleStat
 func New(_ context.Context, obj runtime.Object, h framework.Handle) (framework.Plugin, error) {
 	args, ok := obj.(*config.PodCompletionPermitArgs)
 	if !ok {
-		return nil, fmt.Errorf("want args to be of type NetworkTrafficArgs, got %T", obj)
+		return nil, fmt.Errorf("want args to be of type PodCompletionPermitArgs, got %T", obj)
 	}
 
 	return &PodCompletionPermit{
-		handle:     h,
-		dependencyIndicatorLabel: args.dependencyIndicatorLabel,
-		podAppSelector: args.podAppSelector,
-		versionSelector: args.versionSelector,
-		postfixSelector: args.postfixSelector,
-		dependencyKind: args.dependencyKind,
-		dependencyName: args.dependencyName
+		handle:                   h,
+		dependencyIndicatorLabel: args.DependencyIndicatorLabel,
+		podAppSelector:           args.PodAppSelector,
+		versionSelector:          args.VersionSelector,
+		postfixSelector:          args.PostfixSelector,
+		dependencyKind:           args.DependencyKind,
+		dependencyName:           args.DependencyName,
 	}, nil
-	return &PodCompletionPermit{handle: h}, nil
+
 }

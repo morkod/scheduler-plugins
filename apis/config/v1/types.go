@@ -267,10 +267,10 @@ type SySchedArgs struct {
 type PodCompletionPermitArgs struct {
 	metav1.TypeMeta `json:",inline"`
 
-	dependencyIndicatorLabel *string `json:"dependencyIndicatorLabel,omitempty"`
-	podAppSelector           *string `json:"podAppSelector,omitempty"`
-	versionSelector          *string `json:"versionSelector,omitempty"`
-	postfixSelector          *string `json:"postfixSelector,omitempty"`
-	dependencyKind           *string `json:"dependencyKind,omitempty"`
-	dependencyName           *string `json:"dependencyName,omitempty"`
+	DependencyIndicatorLabel *string `json:"dependencyIndicatorLabel,omitempty"`
+	PodAppSelector           *string `json:"podAppSelector,omitempty"`
+	VersionSelector          *string `json:"versionSelector,omitempty"`
+	PostfixSelector          *string `json:"postfixSelector,omitempty"`
+	DependencyKind           *string `json:"dependencyKind,omitempty"`
+	DependencyName           *string `json:"dependencyName,omitempty"`
 }
